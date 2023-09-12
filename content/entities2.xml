@@ -1,0 +1,20 @@
+<entities anm2root="gfx/" version="5" deathanm2="gfx/death_enemies.anm2">
+	<!-- Familiars -->
+	<entity name="Guppy Familiar"   id="3" variant="6666"   anm2path="guppy familiar.anm2" shadowSize="11"
+	friction="1" collisionRadius="13" collisionMass="3" collisionDamage="6" numGridCollisionPoints="12" collisionInterval="6" >
+		<gibs amount="6"   blood="1" bone="1" eye="1" gut="1" worm="1" />
+	</entity>
+
+
+
+	<!-- Enemies -->
+	<entity name="Sad Satan"   id="200" variant="6666"   anm2path="084.000_satan.anm2" shadowSize="33" portrait="0"
+	boss="1" tags="nodelirium"
+	friction="1" collisionRadius="30" gridCollision="walls" collisionMass="100" collisionDamage="2" numGridCollisionPoints="12" />
+
+
+
+	<!-- Effects -->
+	<entity name="Closet Darkness"   id="1000" variant="666"   anm2path="1000.138_mist.anm2"   friction="1" />
+	<entity name="Closet Mist"   	 id="1000" variant="667"   anm2path="1000.138_mist.anm2"   friction="1" />
+</entities>

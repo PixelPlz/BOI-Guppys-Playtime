@@ -1,0 +1,84 @@
+﻿<!--Converted to ANM2 by Gibbed.Afterbirth.ConvertStage-->
+<stage>
+  <room type="1" variant="0" subtype="0" name="New Room" difficulty="1" weight="1" width="13" height="7" shape="1">
+    <door x="6" y="-1" exists="True" />
+    <door x="-1" y="3" exists="True" />
+    <door x="13" y="3" exists="True" />
+    <door x="6" y="7" exists="True" />
+    <spawn x="6" y="2">
+      <entity type="10" variant="1" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="5" y="3">
+      <entity type="10" variant="1" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="7" y="3">
+      <entity type="10" variant="1" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="6" y="4">
+      <entity type="10" variant="1" subtype="0" weight="1" />
+    </spawn>
+  </room>
+  <room type="1" variant="1" subtype="0" name="New Room (copy)" difficulty="1" weight="1" width="13" height="7" shape="1">
+    <door x="6" y="-1" exists="True" />
+    <door x="-1" y="3" exists="True" />
+    <door x="13" y="3" exists="True" />
+    <door x="6" y="7" exists="True" />
+    <spawn x="5" y="3">
+      <entity type="10" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="6" y="3">
+      <entity type="11" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="7" y="3">
+      <entity type="10" variant="0" subtype="0" weight="1" />
+    </spawn>
+  </room>
+  <room type="1" variant="2" subtype="0" name="New Room (copy)" difficulty="1" weight="1" width="13" height="7" shape="1">
+    <door x="6" y="-1" exists="True" />
+    <door x="-1" y="3" exists="True" />
+    <door x="13" y="3" exists="True" />
+    <door x="6" y="7" exists="True" />
+    <spawn x="0" y="0">
+      <entity type="1000" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="12" y="0">
+      <entity type="1000" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="6" y="2">
+      <entity type="1940" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="4" y="3">
+      <entity type="85" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="5" y="3">
+      <entity type="1940" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="6" y="3">
+      <entity type="85" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="7" y="3">
+      <entity type="1940" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="8" y="3">
+      <entity type="85" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="6" y="4">
+      <entity type="1940" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="0" y="6">
+      <entity type="1000" variant="0" subtype="0" weight="1" />
+    </spawn>
+    <spawn x="12" y="6">
+      <entity type="1000" variant="0" subtype="0" weight="1" />
+    </spawn>
+  </room>
+  <room type="1" variant="3" subtype="0" name="New Room (copy)" difficulty="1" weight="1" width="13" height="7" shape="1">
+    <door x="6" y="-1" exists="True" />
+    <door x="-1" y="3" exists="True" />
+    <door x="13" y="3" exists="True" />
+    <door x="6" y="7" exists="True" />
+    <spawn x="6" y="3">
+      <entity type="17" variant="0" subtype="0" weight="1" />
+    </spawn>
+  </room>
+</stage>
