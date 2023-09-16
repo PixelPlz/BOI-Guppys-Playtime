@@ -16,8 +16,11 @@ mod.Stage.IsSecondStage = false
 mod.StageGrids = StageAPI.GridGfx()
 
 -- Rocks / decorations
-mod.StageGrids:SetRocks("gfx/grid/rocks_mausoleum.png")
+mod.StageGrids:SetRocks("gfx/grid/rocks_closet.png")
 mod.StageGrids:SetDecorations("gfx/grid/props_0ex_isaacs_bedroom.png", "gfx/grid/props_0ex_isaacs_bedroom.anm2")
+
+-- VS screen spots
+mod.Stage:SetSpots("gfx/ui/boss/bossspot_11_darkroom.png", "gfx/ui/boss/playerspot_11_darkroom.png")
 
 
 
@@ -47,6 +50,7 @@ mod.Stage:SetRoomGfx(mod.SecretGfx, {RoomType.ROOM_SECRET})
 
 
 
+
 -- Set the music
 mod.Stage:SetStageMusic(Music.MUSIC_DARK_CLOSET)
 mod.Stage:SetBossMusic(Music.MUSIC_MINESHAFT_ESCAPE, Music.MUSIC_BOSS_OVER, Music.MUSIC_JINGLE_BOSS, Music.MUSIC_JINGLE_BOSS_OVER3)
@@ -56,17 +60,35 @@ mod.Stage:SetBossMusic(Music.MUSIC_MINESHAFT_ESCAPE, Music.MUSIC_BOSS_OVER, Musi
 -- Set floor generation stuff
 mod.Stage:SetRequireRoomTypeMatching(true)
 mod.Stage:SetPregenerationEnabled(true)
---mod.Stage:SetBosses(mod.StageBosses, true)
-
 
 -- Room layouts
 mod.ClosetRooms = StageAPI.RoomsList("Closet Rooms", require("resources.luarooms.closet_rooms"))
-mod.SecretRooms = StageAPI.RoomsList("Closet Secret Rooms", require("resources.luarooms.secret_rooms"))
 
 mod.Stage:SetRooms({
 	[RoomType.ROOM_DEFAULT] = mod.ClosetRooms,
-	[RoomType.ROOM_SECRET]  = mod.SecretRooms,
+	[RoomType.ROOM_SECRET]  = mod.ClosetRooms,
 })
+
+
+
+-- Set the boss
+mod.SatanCloset = StageAPI.RoomsList("Satan's Closet", require("resources.luarooms.closet_satan"))
+
+mod.StageAPIBosses = {
+	SatanShadow = StageAPI.AddBossData("Satan's Shadow", {
+		Name = "Satan's Shadow",
+		Portrait = "gfx/ui/boss/portrait_84.0_satan.png",
+		Bossname = "gfx/ui/boss/bossname_84.0_satan.png",
+		Rooms = mod.SatanCloset,
+		Entity = {Type = mod.Entities.Type, Variant = mod.Entities.SatanShadow},
+		Offset = Vector(8, -16),
+	}),
+}
+
+mod.StageBosses = {
+	"Satan's Shadow",
+}
+mod.Stage:SetBosses(mod.StageBosses, true)
 
 
 
@@ -87,7 +109,7 @@ function mod:EnterCloset()
 		level:DisableDevilRoom()
 
 		-- Darkness + no HUD + no shooting
-		mod:ClosetAlwaysActiveStuff()
+		mod:CreateAlwaysActiveEffects()
 
 
 		-- Replace rooms
@@ -167,24 +189,10 @@ function mod:NewRoomCloset()
 		local room = Game():GetRoom()
 
 		-- Darkness + no HUD + no shooting
-		if not mod.ClosetDarkness or not mod.ClosetDarkness:Exists() then
-			local darkness = Isaac.Spawn(EntityType.ENTITY_EFFECT, mod.Entities.ClosetDarkness, 0, Vector.Zero, Vector.Zero, nil):ToEffect()
-			darkness.Visible = false
-			darkness:AddEntityFlags(EntityFlag.FLAG_PERSISTENT)
-			mod.ClosetDarkness = darkness
-		end
-
+		mod:CreateAlwaysActiveEffects()
 
 		-- Create mist
-		for i = 1, mod:Random(2, 4) do
-			local dir = room:GetDecorationSeed() % 2
-			local mistSpeed = mod:Random(25, 100) / 100
-
-			local spawnX = mod:Random(room:GetTopLeftPos().X - 400, (room:GetGridWidth() * 40) + 400)
-			local spawnY = mod:Random(room:GetTopLeftPos().Y, room:GetBottomRightPos().Y)
-
-			Isaac.Spawn(EntityType.ENTITY_EFFECT, mod.Entities.ClosetMist, 0, Vector(spawnX, spawnY), Vector(mod:GetSign(dir) * mistSpeed, 0), nil):Update()
-		end
+		mod:CreateMist()
 
 
 		-- Update doors

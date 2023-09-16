@@ -2,11 +2,22 @@ local mod = GuppysPlaytime
 
 
 
--- Darkness + no HUD + no shooting
+-- Always active effects
 function mod:ClosetAlwaysActiveStuff()
-	Game():Darken(1, 100)
-	--Game():GetHUD():SetVisible(false)
+	-- Keep the HUD hidden
+	Game():GetHUD():SetVisible(false)
 
+	-- Darkness in the closet
+	if Game():GetLevel():GetAbsoluteStage() ~= LevelStage.STAGE8 then
+		Game():Darken(1, 20)
+
+	-- Keep the door closed in home
+	else
+		Game():GetRoom():KeepDoorsClosed()
+		MusicManager():Fadeout(0.01)
+	end
+
+	-- Stop players from shooting
 	for i = 1, Game():GetNumPlayers() do
 		local player = Isaac.GetPlayer(i)
 		if player:Exists() then
@@ -15,9 +26,16 @@ function mod:ClosetAlwaysActiveStuff()
 	end
 end
 
-function mod:ClosetDarknessUpdate(effect)
-	local room = Game():GetRoom()
+function mod:CreateAlwaysActiveEffects()
+	if not mod.ClosetDarkness or not mod.ClosetDarkness:Exists() then
+		local darkness = Isaac.Spawn(EntityType.ENTITY_EFFECT, mod.Entities.ClosetDarkness, 0, Vector.Zero, Vector.Zero, nil):ToEffect()
+		darkness.Visible = false
+		darkness:AddEntityFlags(EntityFlag.FLAG_PERSISTENT)
+		mod.ClosetDarkness = darkness
+	end
+end
 
+function mod:ClosetDarknessUpdate(effect)
 	if effect:IsFrame(2, 0) then
 		mod:ClosetAlwaysActiveStuff()
 	end
@@ -27,6 +45,21 @@ mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.ClosetDarknessUpdate, mo
 
 
 -- Mist
+-- Create mist in the room
+function mod:CreateMist()
+	local room = Game():GetRoom()
+
+	for i = 1, mod:Random(2, 4) do
+		local dir = room:GetDecorationSeed() % 2
+		local mistSpeed = mod:Random(25, 100) / 100
+
+		local spawnX = mod:Random(room:GetTopLeftPos().X - 400, (room:GetGridWidth() * 40) + 400)
+		local spawnY = mod:Random(room:GetTopLeftPos().Y, room:GetBottomRightPos().Y)
+
+		Isaac.Spawn(EntityType.ENTITY_EFFECT, mod.Entities.ClosetMist, 0, Vector(spawnX, spawnY), Vector(mod:GetSign(dir) * mistSpeed, 0), nil):Update()
+	end
+end
+
 function mod:ClosetMistInit(effect)
 	local sprite = effect:GetSprite()
 

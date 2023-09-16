@@ -12,9 +12,10 @@ mod.Entities = {
 	-- Familiars
 	GuppyFamiliar = Isaac.GetEntityVariantByName("Guppy Familiar"),
 
-	-- Enemies
+	-- NPCs
 	Type = 200,
-	SadSatan = Isaac.GetEntityVariantByName("Sad Satan"),
+	SatanShadow  = Isaac.GetEntityVariantByName("Satan's Shadow"),
+	ShakingChest = Isaac.GetEntityVariantByName("Shaking Chest"),
 
 	-- Effects
 	ClosetDarkness = Isaac.GetEntityVariantByName("Closet Darkness"),

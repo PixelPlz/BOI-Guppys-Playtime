@@ -1,0 +1,5 @@
+<sounds root="sfx/">
+	<sound name="Home Door Open">
+        <sample weight="1" path="home_door_open.wav" />
+    </sound>
+</sounds>

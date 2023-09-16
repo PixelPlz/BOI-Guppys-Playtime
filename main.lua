@@ -18,6 +18,7 @@ local generalScripts = {
 	"utilities",
 
 	"guppy",
+	"satanShadow",
 	"effects",
 }
 mod:LoadScripts(generalScripts)
@@ -32,8 +33,14 @@ local floorScripts = {
 mod:LoadScripts(floorScripts, "floors")
 
 
--- Enemies
-local enemyScripts = {
-	"sadSatan",
-}
-mod:LoadScripts(enemyScripts)
+
+
+
+
+-- TODO ordered by priority:
+-- Guppy sprites + attacks (ASAP pls)
+-- Cardboard Monstro
+-- Costume with Isaac's eyes sewn shut in the closet (not in home)
+-- Shadowy hallucinations
+-- Jumpscare enemies? (probably not enough time)
+-- Fix first floor boss vs screen showing monstro if he was replaced (if possible???)
