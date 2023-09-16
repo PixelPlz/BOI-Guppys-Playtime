@@ -92,6 +92,40 @@ mod.Stage:SetBosses(mod.StageBosses, true)
 
 
 
+-- Override skull drops
+mod.Stage:OverrideRockAltEffects({RoomType.ROOM_DEFAULT, RoomType.ROOM_BOSS, RoomType.ROOM_SECRET})
+
+StageAPI.AddCallback("The Closet", "POST_OVERRIDDEN_ALT_ROCK_BREAK", 1, function(gridpos, gridvar, shroomData, customGrid)
+    if mod.Stage:IsStage() then
+		SFXManager():Stop(SoundEffect.SOUND_MUSHROOM_POOF_2)
+        SFXManager():Play(SoundEffect.SOUND_ROCK_CRUMBLE)
+
+		if shroomData then
+			for _, spawn in ipairs(shroomData) do
+				-- Black heart
+				if spawn.Type == EntityType.ENTITY_PICKUP and spawn.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BLACK, gridpos, Vector.Zero, nil)
+					break
+				end
+
+				-- Bone heart
+				if spawn.Type == EntityType.ENTITY_PICKUP and spawn.Variant == PickupVariant.PICKUP_PILL then
+					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE, gridpos, Vector.Zero, nil)
+					break
+				end
+
+				-- Bony
+				if spawn.Type == EntityType.ENTITY_EFFECT and spawn.Variant == EffectVariant.FART then
+					Isaac.Spawn(EntityType.ENTITY_BONY, 0, 0, gridpos, Vector.Zero, nil)
+					break
+				end
+			end
+		end
+    end
+end)
+
+
+
 
 
 
