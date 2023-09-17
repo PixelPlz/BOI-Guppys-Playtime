@@ -96,16 +96,6 @@ function mod:FlipTowardsMovement(entity, sprite, otherWay)
 	end
 end
 
--- Flip towards the entity's target
-function mod:FlipTowardsTarget(entity, sprite, otherWay)
-	local target = entity:GetPlayerTarget()
-	if (otherWay == true and target.Position.X > entity.Position.X) or (otherWay ~= true and target.Position.X < entity.Position.X) then
-		sprite.FlipX = true
-	else
-		sprite.FlipX = false
-	end
-end
-
 
 
 --[[ Misc. functions ]]--

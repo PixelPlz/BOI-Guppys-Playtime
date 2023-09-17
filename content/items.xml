@@ -1,4 +1,4 @@
-<items gfxroot="gfx/items/" version="1" deathanm2="icon.anm2">
-	<familiar id="6666" name="Playtime Guppy" description="Trusty companion" gfx="Collectibles_PlaytimeGuppy.png"
-	quality="2" craftquality="2" tags="dead guppy monstermanual offensive summonable nocantrip" />
+<items gfxroot="gfx/items/" version="1" deathanm2="gfx/death_items.anm2">
+	<familiar id="1" name="Playtime Guppy" description="Trusty companion" gfx="Collectibles_PlaytimeGuppy.png"
+	quality="2" craftquality="2" hidden="true" tags="dead guppy monstermanual offensive summonable nocantrip noeden" />
 </items>

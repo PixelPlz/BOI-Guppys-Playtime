@@ -1,7 +1,7 @@
 <entities anm2root="gfx/" version="5" deathanm2="gfx/death_enemies.anm2">
 	<!-- Familiars -->
-	<entity name="Guppy Familiar"   id="3" variant="6666"   anm2path="guppy familiar.anm2" shadowSize="11"
-	friction="1" collisionRadius="13" collisionMass="3" collisionDamage="4" numGridCollisionPoints="12" collisionInterval="4" >
+	<entity name="Guppy Familiar"   id="3" variant="6666"   anm2path="guppy familiar.anm2" shadowSize="24"
+	friction="1" collisionRadius="16" collisionMass="3" collisionDamage="4" numGridCollisionPoints="12" collisionInterval="4" >
 		<gibs amount="6"   blood="1" bone="1" eye="1" gut="1" worm="1" />
 	</entity>
 
@@ -9,18 +9,19 @@
 
 	<!-- NPCs -->
 	<!-- Satan's Shadow -->
-	<entity name="Satan's Shadow"   id="200" variant="6666"   anm2path="satan shadow.anm2" shadowSize="33" portrait="0"
+	<entity name="Satan's Shadow"   id="200" variant="6666"   anm2path="satan shadow.anm2" shadowSize="33" portrait="55"
 	boss="1" tags="nodelirium"
 	friction="1" collisionRadius="30" gridCollision="walls" numGridCollisionPoints="12" />
 
 	<!-- Shaking Chest (not an enemy but I don't care) -->
-	<entity name="Shaking Chest"   id="200" variant="6667"   anm2path="shaking chest.anm2" shadowSize="27"
+	<entity name="Shaking Chest"   id="200" variant="6667"   anm2path="shaking chest.anm2"
 	shutdoors="false" tags="noreroll"
 	friction="1" collisionRadius="12" collisionMass="100" numGridCollisionPoints="24" />
 
 
 
 	<!-- Effects -->
-	<entity name="Closet Darkness"   id="1000" variant="666"   anm2path="1000.138_mist.anm2"   friction="1" />
-	<entity name="Closet Mist"   	 id="1000" variant="667"   anm2path="1000.138_mist.anm2"   friction="1" />
+	<entity name="Closet Darkness"   id="1000" variant="666"   anm2path="1000.138_mist.anm2"    friction="1" />
+	<entity name="Closet Mist"   	 id="1000" variant="667"   anm2path="1000.138_mist.anm2"    friction="1" />
+	<entity name="Dead Guppy"   	 id="1000" variant="668"   anm2path="guppy familiar.anm2"   friction="1" />
 </entities>

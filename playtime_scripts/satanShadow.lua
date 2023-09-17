@@ -36,7 +36,7 @@ function mod:SatanShadowUpdate(entity)
 
 
 		-- Heartbeat effect
-		if entity:IsFrame(50 - math.floor(entity.I2 * 3.6), 0) then
+		if entity.FrameCount > 10 and entity:IsFrame(50 - math.floor(entity.I2 * 3.6), 0) then
 			local sound = SoundEffect.SOUND_HEARTBEAT
 			local volume = 1 + entity.I2 * 0.2
 
@@ -75,7 +75,7 @@ function mod:SatanShadowUpdate(entity)
 				-- Fade in
 				else
 					if entity.I2 == 10 then
-						entity.ProjectileCooldown = 30
+						entity.ProjectileCooldown = 45
 					else
 						entity.ProjectileCooldown = 90 - math.floor(entity.I2 * 4.5)
 					end

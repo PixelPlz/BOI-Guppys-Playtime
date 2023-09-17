@@ -1,8 +1,5 @@
 local mod = GuppysPlaytime
 
-mod.MonstroRooms = StageAPI.RoomsList("Monstro Boss Rooms", require("resources.luarooms.monstro_rooms"))
-mod.ReplacementBoss = StageAPI.RoomsList("Replacement Boss Rooms", require("resources.luarooms.replacement_boss"))
-
 
 
 function mod:PostPlayerInit(player)
@@ -52,7 +49,7 @@ function mod:RemoveSomeEnemies(Type, Variant, SubType, GridIndex, Seed)
     	local room = Game():GetRoom()
 
 		-- Replace enemies with blood on the floor in empty rooms / treasure rooms
-		if (room:GetType() == RoomType.ROOM_DEFAULT and room:GetDecorationSeed() % 2 == 0) or room:GetType() == RoomType.ROOM_TREASURE
+		if ((room:GetType() == RoomType.ROOM_DEFAULT and room:GetDecorationSeed() % 2 == 0) or room:GetType() == RoomType.ROOM_TREASURE)
 		and Type < 1000 and Type ~= EntityType.ENTITY_FIREPLACE then
 			return {EntityType.ENTITY_EFFECT - 1, EffectVariant.BLOOD_SPLAT, 0}
 		end
@@ -124,16 +121,28 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.EnterBasement)
 
 
 -- Fake Monstro death
+function mod:MonstroInit(entity)
+	if Isaac.GetChallenge() == mod.ChallengeID and entity.SubType == 1000 then
+		entity:GetSprite():Load("gfx/fake monstro.anm2", true)
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.MonstroInit, EntityType.ENTITY_MONSTRO)
+
 function mod:MonstroRender(entity, offset)
 	if not Game():IsPaused() and Isaac.GetChallenge() == mod.ChallengeID and entity:GetSprite():IsPlaying("Death") then
 		local sprite = entity:GetSprite()
 
 		-- Fade the music out
-		if sprite:GetFrame() == 1 then
+		if sprite:IsEventTriggered("BloodStart") then
 			MusicManager():Fadeout(0.01)
 
+		-- Land sound
+		elseif sprite:IsEventTriggered("Land") and not entity:GetData().impactSound then
+			mod:PlaySound(entity, mod.Sounds.CardboardImpact, 2)
+			entity:GetData().impactSound = true
+
 		-- Change floor
-		elseif sprite:GetFrame() == 75 then
+		elseif sprite:IsEventTriggered("Shoot") then
 			StageAPI.GotoCustomStage(mod.Stage, false)
 			Game():Fadein(0.0125)
 			mod:ResetPlayers()

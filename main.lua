@@ -18,8 +18,8 @@ local generalScripts = {
 	"utilities",
 
 	"guppy",
-	"satanShadow",
 	"effects",
+	"satanShadow",
 }
 mod:LoadScripts(generalScripts)
 
@@ -34,13 +34,8 @@ mod:LoadScripts(floorScripts, "floors")
 
 
 
-
-
-
--- TODO ordered by priority:
--- Guppy sprites + attacks (ASAP pls)
--- Cardboard Monstro
--- Costume with Isaac's eyes sewn shut in the closet (not in home)
--- Shadowy hallucinations
--- Jumpscare enemies? (probably not enough time)
--- Fix first floor boss vs screen showing monstro if he was replaced (if possible???)
+-- Known issues:
+-- Mist does not go off-screen completely before respawning in thin rooms
+-- First floor boss vs screen shows Monstro if he was replaced
+-- Random crash when starting new run
+-- Stage transition shows the wrong stage type if it wasn't the Basement originally

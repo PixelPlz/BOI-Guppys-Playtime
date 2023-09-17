@@ -7,22 +7,23 @@ function mod:ClosetAlwaysActiveStuff()
 	-- Keep the HUD hidden
 	Game():GetHUD():SetVisible(false)
 
-	-- Darkness in the closet
+	-- Closet
 	if Game():GetLevel():GetAbsoluteStage() ~= LevelStage.STAGE8 then
+		-- Darkness
 		Game():Darken(1, 20)
+
+		-- Stop players from shooting
+		for i = 1, Game():GetNumPlayers() do
+			local player = Isaac.GetPlayer(i)
+			if player:Exists() then
+				player:SetShootingCooldown(100)
+			end
+		end
 
 	-- Keep the door closed in home
 	else
 		Game():GetRoom():KeepDoorsClosed()
 		MusicManager():Fadeout(0.01)
-	end
-
-	-- Stop players from shooting
-	for i = 1, Game():GetNumPlayers() do
-		local player = Isaac.GetPlayer(i)
-		if player:Exists() then
-			player:SetShootingCooldown(100)
-		end
 	end
 end
 
@@ -92,3 +93,11 @@ function mod:ClosetMistUpdate(effect)
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.ClosetMistUpdate, mod.Entities.ClosetMist)
+
+
+
+--[[ Dead Guppy ]]--
+function mod:DeadGuppyInit(effect)
+	effect:GetSprite():Play("aw fuck", true)
+end
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, mod.DeadGuppyInit, mod.Entities.DeadGuppy)

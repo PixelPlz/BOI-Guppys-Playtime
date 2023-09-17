@@ -1,4 +1,21 @@
 <sounds root="sfx/">
+    <!-- Guppy -->
+    <sound name="Guppy Meow">
+        <sample weight="1" path="guppy_meow.wav" />
+    </sound>
+
+    <sound name="Guppy Pounce">
+        <sample weight="1" path="guppy_pounce.wav" />
+    </sound>
+
+
+    <!-- Fake Monstro -->
+    <sound name="Cardboard Impact">
+        <sample weight="1" path="monstro_cardboard_impact.wav" />
+    </sound>
+
+
+    <!-- Home cutscene -->
 	<sound name="Home Door Open">
         <sample weight="1" path="home_door_open.wav" />
     </sound>

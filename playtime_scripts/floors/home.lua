@@ -34,9 +34,19 @@ function mod:EnterHome()
             break
         end
 
+        -- If there was no golden chest to replace
         if spawned == false then
-            Isaac.Spawn(mod.Entities.Type, mod.Entities.ShakingChest, 0, room:GetGridPosition(77), Vector.Zero, nil) -- Hardcoded yippie
+            Isaac.Spawn(mod.Entities.Type, mod.Entities.ShakingChest, 0, room:GetGridPosition(77), Vector.Zero, nil)
         end
+
+
+        -- Remove stitched eyes costume
+		for i = 1, Game():GetNumPlayers() do
+			local player = Isaac.GetPlayer(i)
+			if player:Exists() then
+                player:TryRemoveNullCostume(mod.StitchedEyesCostume)
+			end
+		end
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.EnterHome)
@@ -73,9 +83,9 @@ function mod:ShakingChestUpdate(entity)
                 if door ~= nil then
                     door:GetSprite():Play("Open", true)
                 end
-                mod:PlaySound(nil, Isaac.GetSoundIdByName("Home Door Open"))
+                mod:PlaySound(nil, mod.Sounds.DoorOpen)
 
-                entity.StateFrame = 35
+                entity.StateFrame = 30
                 entity.I2 = entity.I2 + 1
 
 
@@ -90,7 +100,7 @@ function mod:ShakingChestUpdate(entity)
                 sprite:Play("Shake", true)
                 mod:PlaySound(entity, SoundEffect.SOUND_CHEST_OPEN, 0.9 - entity.I2 * 0.1, 0.9)
 
-                entity.I1 = math.floor(entity.I1 * 1.4)
+                entity.I1 = math.floor(entity.I1 * 1.45)
                 entity.StateFrame = entity.I1
                 entity.I2 = entity.I2 + 1
             end

@@ -62,8 +62,6 @@ mod.Stage:SetRequireRoomTypeMatching(true)
 mod.Stage:SetPregenerationEnabled(true)
 
 -- Room layouts
-mod.ClosetRooms = StageAPI.RoomsList("Closet Rooms", require("resources.luarooms.closet_rooms"))
-
 mod.Stage:SetRooms({
 	[RoomType.ROOM_DEFAULT] = mod.ClosetRooms,
 	[RoomType.ROOM_SECRET]  = mod.ClosetRooms,
@@ -72,8 +70,6 @@ mod.Stage:SetRooms({
 
 
 -- Set the boss
-mod.SatanCloset = StageAPI.RoomsList("Satan's Closet", require("resources.luarooms.closet_satan"))
-
 mod.StageAPIBosses = {
 	SatanShadow = StageAPI.AddBossData("Satan's Shadow", {
 		Name = "Satan's Shadow",
@@ -146,7 +142,7 @@ function mod:EnterCloset()
 		mod:CreateAlwaysActiveEffects()
 
 
-		-- Replace rooms
+		-- Get rooms to replace
 		local roomsList = level:GetRooms()
 		local roomsToReplace = {}
 		local IIVroomsToReplace = {}
@@ -180,6 +176,7 @@ function mod:EnterCloset()
 		end
 
 
+		-- Replace rooms
 		for i = 0, 2 do
 			local table = roomsToReplace
 			local shape = RoomShape.ROOMSHAPE_1x1
@@ -209,9 +206,17 @@ function mod:EnterCloset()
 			end
 		end
 
-
 		-- Update the minimap
 		level:UpdateVisibility()
+
+
+		-- Add stitched eyes costume
+		for i = 1, Game():GetNumPlayers() do
+			local player = Isaac.GetPlayer(i)
+			if player:Exists() then
+				player:AddNullCostume (mod.StitchedEyesCostume)
+			end
+		end
 	end
 end
 mod:AddPriorityCallback(ModCallbacks.MC_POST_NEW_LEVEL, CallbackPriority.EARLY, mod.EnterCloset)
@@ -220,6 +225,7 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_NEW_LEVEL, CallbackPriority.EARLY, 
 
 function mod:NewRoomCloset()
 	if mod.Stage:IsStage() then
+		local level = Game():GetLevel()
 		local room = Game():GetRoom()
 
 		-- Darkness + no HUD + no shooting
@@ -249,7 +255,13 @@ function mod:NewRoomCloset()
 		end
 
 
-		-- Improved Backdrops fix
+		-- Spawn dead Guppy
+		if level:GetCurrentRoomIndex() == level:GetStartingRoomIndex() then
+			Isaac.Spawn(EntityType.ENTITY_EFFECT, mod.Entities.DeadGuppy, 0, room:GetGridPosition(81), Vector.Zero, nil)
+		end
+
+
+		-- Improved Backdrops fix for boss room
 		if ImprovedBackdrops and room:GetType() == RoomType.ROOM_BOSS then
 			Game():ShowHallucination(0, BackdropType.DARK_CLOSET)
 			SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
