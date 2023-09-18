@@ -192,3 +192,11 @@ function mod:GuppyCheck(player)
 	player:CheckFamiliar(mod.Entities.GuppyFamiliar, numFamiliars, player:GetCollectibleRNG(mod.GuppyItem), config)
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.GuppyCheck, CacheFlag.CACHE_FAMILIARS)
+
+
+
+--[[ Dead Guppy ]]--
+function mod:DeadGuppyInit(effect)
+	effect:GetSprite():Play("aw fuck", true)
+end
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, mod.DeadGuppyInit, mod.Entities.DeadGuppy)

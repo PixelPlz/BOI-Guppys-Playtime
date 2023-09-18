@@ -24,4 +24,5 @@
 	<entity name="Closet Darkness"   id="1000" variant="666"   anm2path="1000.138_mist.anm2"    friction="1" />
 	<entity name="Closet Mist"   	 id="1000" variant="667"   anm2path="1000.138_mist.anm2"    friction="1" />
 	<entity name="Dead Guppy"   	 id="1000" variant="668"   anm2path="guppy familiar.anm2"   friction="1" />
+	<entity name="Hallucination"   	 id="1000" variant="669"   anm2path="hallucination.anm2"    friction="1" />
 </entities>

@@ -36,6 +36,5 @@ mod:LoadScripts(floorScripts, "floors")
 
 -- Known issues:
 -- Mist does not go off-screen completely before respawning in thin rooms
--- First floor boss vs screen shows Monstro if he was replaced
 -- Random crash when starting new run
 -- Stage transition shows the wrong stage type if it wasn't the Basement originally

@@ -96,8 +96,45 @@ mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.ClosetMistUpdate, mod.En
 
 
 
---[[ Dead Guppy ]]--
-function mod:DeadGuppyInit(effect)
-	effect:GetSprite():Play("aw fuck", true)
+-- Hallucination
+-- Create a hallucination in the room
+function mod:TryCreateHallucination()
+	local max = 3
+	if mod.Stage:IsStage() then
+		max = 2
+	end
+
+	if mod:Random(1, max) == 1 then
+		local pos = Game():GetRoom():GetRandomPosition(20)
+		Isaac.Spawn(EntityType.ENTITY_EFFECT, mod.Entities.Hallucination, 3 - max, pos, Vector.Zero, nil):Update()
+	end
 end
-mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, mod.DeadGuppyInit, mod.Entities.DeadGuppy)
+
+function mod:HallucinationInit(effect)
+	effect:GetSprite().Color = Color(1,1,1, math.min(1, 0.1 + effect.SubType * 0.1))
+end
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, mod.HallucinationInit, mod.Entities.Hallucination)
+
+function mod:HallucinationUpdate(effect)
+	local sprite = effect:GetSprite()
+
+	-- Watching
+	if effect.State == 0 then
+		mod:LoopingAnim(sprite, "Idle")
+
+		-- Disappear if a player gets too close
+		local nearest = Game():GetNearestPlayer(effect.Position)
+		if nearest.Position:Distance(effect.Position) < 180 then
+			effect.State = 1
+			sprite:Play("Disappear", true)
+			mod:PlaySound(nil, mod.Sounds.HallucinationDisappear, math.min(1, 0.25 + effect.SubType * 0.1))
+		end
+
+	-- Disappear
+	elseif effect.State == 1 then
+		if sprite:IsFinished() then
+			effect:Remove()
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.HallucinationUpdate, mod.Entities.Hallucination)

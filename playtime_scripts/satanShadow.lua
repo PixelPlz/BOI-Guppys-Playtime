@@ -81,7 +81,7 @@ function mod:SatanShadowUpdate(entity)
 					end
 
 					entity.State = NpcState.STATE_JUMP
-					mod:PlaySound(entity, SoundEffect.SOUND_SATAN_STOMP, 1.1, 0.95)
+					mod:PlaySound(nil, mod.Sounds.HallucinationDisappear, 0.9)
 					entity.I2 = entity.I2 + 1
 				end
 

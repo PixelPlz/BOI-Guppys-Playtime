@@ -38,6 +38,9 @@ function mod:NewRoomBasement()
 		else
 			MusicManager():VolumeSlide(1, 0.01)
 		end
+
+		-- Spawn hallucinations
+		mod:TryCreateHallucination()
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.NewRoomBasement)
@@ -64,55 +67,37 @@ function mod:EnterBasement()
 	local stageNum = level:GetAbsoluteStage()
 
 	if Isaac.GetChallenge() == mod.ChallengeID and level:GetAbsoluteStage() <= LevelStage.STAGE1_2 then
-		local isEerie = stageNum == 2
-
 		-- Always use the Basement
 		if level:GetStageType() ~= StageType.STAGETYPE_ORIGINAL then
 			Isaac.ExecuteCommand("stage " .. stageNum) -- This is dumb but whatever
 		end
 
-		-- Disable devil rooms
-		level:DisableDevilRoom()
+		-- Force Famine as the first boss
+		level:ForceHorsemanBoss(1)
 
 
-		-- Get the boss room for this floor
+		-- Replace the second floor boss with fake Monstro
 		local roomsList = level:GetRooms()
-		local bossRoom = nil
 
 		for i = 0, #roomsList - 1 do
 			local desc = roomsList:Get(i)
 
-			if desc.Data.Type == RoomType.ROOM_BOSS -- Is the boss room
-			and ((isEerie == false and desc.Data.Subtype == 1) -- Don't spawn Monstro on the first floor
-			or isEerie == true) then -- Always spawn Monstro on the second floor
-				bossRoom = desc.SafeGridIndex
+			if desc.Data.Type == RoomType.ROOM_BOSS and stageNum == 2 then
+				local overwriteDesc = level:GetRoomByIdx(desc.SafeGridIndex)
+				local newData = StageAPI.GetGotoDataForTypeShape(RoomType.ROOM_BOSS, RoomShape.ROOMSHAPE_1x1)
+				overwriteDesc.Data = newData
+
+				-- Set room data
+				local newBossRoom = StageAPI.LevelRoom{
+					RoomType = RoomType.ROOM_BOSS,
+					RequireRoomType = true,
+					RoomsList = mod.MonstroRooms,
+					RoomDescriptor = overwriteDesc
+				}
+				StageAPI.SetLevelRoom(newBossRoom, overwriteDesc.ListIndex)
+
 				break
 			end
-		end
-
-
-		-- Replace boss room
-		if bossRoom ~= nil then
-			local overwriteDesc = level:GetRoomByIdx(bossRoom)
-			local newData = StageAPI.GetGotoDataForTypeShape(RoomType.ROOM_BOSS, RoomShape.ROOMSHAPE_1x1)
-			overwriteDesc.Data = newData
-
-			-- Get the list of rooms to use
-			local newRooms = nil
-			if isEerie == true then
-				newRooms = mod.MonstroRooms
-			else
-				newRooms = mod.ReplacementBoss
-			end
-
-			-- Set room data
-			local newBossRoom = StageAPI.LevelRoom{
-				RoomType = RoomType.ROOM_BOSS,
-				RequireRoomType = true,
-				RoomsList = newRooms,
-				RoomDescriptor = overwriteDesc
-			}
-			StageAPI.SetLevelRoom(newBossRoom, overwriteDesc.ListIndex)
 		end
 	end
 end
@@ -129,7 +114,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.MonstroInit, EntityType.ENTITY_MONSTRO)
 
 function mod:MonstroRender(entity, offset)
-	if not Game():IsPaused() and Isaac.GetChallenge() == mod.ChallengeID and entity:GetSprite():IsPlaying("Death") then
+	if not Game():IsPaused() and Isaac.GetChallenge() == mod.ChallengeID and entity.SubType == 1000 and entity:GetSprite():IsPlaying("Death") then
 		local sprite = entity:GetSprite()
 
 		-- Fade the music out

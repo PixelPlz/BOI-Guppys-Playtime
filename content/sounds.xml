@@ -9,6 +9,12 @@
     </sound>
 
 
+    <!-- Hallucination -->
+    <sound name="Hallucination Disappear">
+        <sample weight="1" path="hallucination_disappear.wav" />
+    </sound>
+
+
     <!-- Fake Monstro -->
     <sound name="Cardboard Impact">
         <sample weight="1" path="monstro_cardboard_impact.wav" />

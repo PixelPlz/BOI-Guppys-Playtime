@@ -22,6 +22,7 @@ mod.Entities = {
 	ClosetDarkness = Isaac.GetEntityVariantByName("Closet Darkness"),
 	ClosetMist     = Isaac.GetEntityVariantByName("Closet Mist"),
 	DeadGuppy      = Isaac.GetEntityVariantByName("Dead Guppy"),
+	Hallucination  = Isaac.GetEntityVariantByName("Hallucination"),
 }
 
 
@@ -31,6 +32,9 @@ mod.Sounds = {
 	-- Guppy
 	GuppyMeow 	= Isaac.GetSoundIdByName("Guppy Meow"),
 	GuppyPounce = Isaac.GetSoundIdByName("Guppy Pounce"),
+
+	-- Hallucination
+	HallucinationDisappear = Isaac.GetSoundIdByName("Hallucination Disappear"),
 
 	-- Fake Monstro
 	CardboardImpact = Isaac.GetSoundIdByName("Cardboard Impact"),
@@ -42,7 +46,6 @@ mod.Sounds = {
 
 
 --[[ Room lists ]]--
-mod.ReplacementBoss = StageAPI.RoomsList("Replacement Boss Rooms", require("resources.luarooms.replacement_boss"))
-mod.MonstroRooms 	= StageAPI.RoomsList("Monstro Boss Rooms",     require("resources.luarooms.monstro_rooms"))
-mod.ClosetRooms 	= StageAPI.RoomsList("Closet Rooms", 		   require("resources.luarooms.closet_rooms"))
-mod.SatanCloset 	= StageAPI.RoomsList("Satan's Closet", 		   require("resources.luarooms.closet_satan"))
+mod.MonstroRooms = StageAPI.RoomsList("Monstro Boss Rooms", require("resources.luarooms.monstro_rooms"))
+mod.ClosetRooms  = StageAPI.RoomsList("Closet Rooms", 		require("resources.luarooms.closet_rooms"))
+mod.SatanCloset  = StageAPI.RoomsList("Satan's Closet", 	require("resources.luarooms.closet_satan"))

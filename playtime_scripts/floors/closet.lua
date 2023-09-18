@@ -73,7 +73,7 @@ mod.Stage:SetRooms({
 mod.StageAPIBosses = {
 	SatanShadow = StageAPI.AddBossData("Satan's Shadow", {
 		Name = "Satan's Shadow",
-		Portrait = "gfx/ui/boss/portrait_84.0_satan.png",
+		Portrait = "gfx/ui/boss/portrait_84.0_satanshadow.png",
 		Bossname = "gfx/ui/boss/bossname_84.0_satan.png",
 		Rooms = mod.SatanCloset,
 		Entity = {Type = mod.Entities.Type, Variant = mod.Entities.SatanShadow},
@@ -134,9 +134,6 @@ mod.RoomTypeBlacklist = {
 function mod:EnterCloset()
 	if mod.Stage:IsStage() then
 		local level = Game():GetLevel()
-
-		-- Disable devil rooms
-		level:DisableDevilRoom()
 
 		-- Darkness + no HUD + no shooting
 		mod:CreateAlwaysActiveEffects()
@@ -230,9 +227,10 @@ function mod:NewRoomCloset()
 
 		-- Darkness + no HUD + no shooting
 		mod:CreateAlwaysActiveEffects()
-
 		-- Create mist
 		mod:CreateMist()
+		-- Spawn hallucinations
+		mod:TryCreateHallucination()
 
 
 		-- Update doors

@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="robot" CreatedOn="2023. 09. 17. 14:03:04" Version="115" Fps="30"/>
+	<Info CreatedBy="robot" CreatedOn="2023. 09. 18. 13:39:14" Version="116" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="bosses\classic\boss_004_monstro_fake.png" Id="0"/>
@@ -156,7 +156,7 @@
 				<Trigger EventId="0" AtFrame="12"/>
 				<Trigger EventId="5" AtFrame="55"/>
 				<Trigger EventId="3" AtFrame="91"/>
-				<Trigger EventId="2" AtFrame="94"/>
+				<Trigger EventId="2" AtFrame="93"/>
 			</Triggers>
 		</Animation>
 		<Animation Name="JumpDown" FrameNum="64" Loop="false">
