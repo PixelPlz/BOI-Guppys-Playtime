@@ -34,6 +34,13 @@ mod:LoadScripts(floorScripts, "floors")
 
 
 
+-- Made by the Foe-boat:
+-- PixelPlz
+-- Ferpe
+-- Dave
+
+
+
 -- Known issues:
 -- Mist does not go off-screen completely before respawning in thin rooms
 -- Random crash when starting new run
